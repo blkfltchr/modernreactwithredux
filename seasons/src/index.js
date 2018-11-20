@@ -3,26 +3,34 @@ import ReactDOM from 'react-dom';
 import SeasonDisplay from './SeasonDisplay'
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-        // THIS IS THE ONLY TIME we do direct assignment to this.state
-        this.state = {
-            lat: null,
-            long: null,
-            errorMessage: '' 
-        };
-        
+    // constructor(props) {
+    //     super(props);
+    //     // THIS IS THE ONLY TIME we do direct assignment to this.state
+    //     // in this example, the constructor's only job is to initialize state
+    //     this.state = {
+            
+    //     };
+    // }
+
+    // equivalent to what's above
+    state = {
+        lat: null,
+        long: null,
+        errorMessage: '' 
+    }; 
+    
+    // best practice: data loading should happen here 
+    // and/or in componentDidUpdate rather than in the constructor 
+    componentDidMount() {
         window.navigator.geolocation.getCurrentPosition(
-            (position) => {
-                console.log("coords", position.coords)
-                this.setState({ 
+            position => this.setState({ 
                     lat: position.coords.latitude, 
                     long: position.coords.longitude 
-                })
-            },
-            (error) => this.setState({ errorMessage: error.message })
+                }),
+            error => this.setState({ errorMessage: error.message })
         );
     }
+
     // React says we have to define render!!
     render() { 
         console.log("state", this.state);
@@ -37,9 +45,7 @@ class App extends React.Component {
         }
             return (
                 <div>
-                    <SeasonDisplay />
-                    <p>Latitude: {this.state.lat}</p>
-                    <p>Longitude: {this.state.long}</p>
+                    <SeasonDisplay lat={this.state.lat} long={this.state.long} />
                 </div>
             );
     }
