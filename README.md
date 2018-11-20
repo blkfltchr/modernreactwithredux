@@ -5,3 +5,4 @@ Course notes, applications and exercies from [Modern React with Redux [2019 Upda
 Contents:
 - [x] `/JSX` - a simple create-react-app that shows how JSX works at the highest level
 - [x] `/components` - three faker.js-populated comment components with reply and like buttons that show how functional components pass and receive props
+- [x] `/seasons` - an app that checks your location, figures out what hemisphere and season you're in, and tells you what to wear

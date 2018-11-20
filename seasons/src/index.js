@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SeasonDisplay from './SeasonDisplay'
+import SeasonDisplay from './SeasonDisplay';
+import Loader from './Loader';
+import './index.css';
 
 class App extends React.Component {
     // constructor(props) {
@@ -31,16 +33,15 @@ class App extends React.Component {
         );
     }
 
-    // React says we have to define render!!
-    render() { 
+    renderContent() {
         console.log("state", this.state);
         if (this.state.errorMessage) {
             return (
-                <h1 style={{color: "red"}}>{this.state.errorMessage}</h1>
+                <h1 className="warning">{this.state.errorMessage}</h1>
             )
         } if (!this.state.lat && !this.state.long) {
             return (
-                <div>loading...</div>
+                <Loader />
                 ) 
         }
             return (
@@ -48,6 +49,15 @@ class App extends React.Component {
                     <SeasonDisplay lat={this.state.lat} long={this.state.long} />
                 </div>
             );
+    }
+
+    // React says we have to define render!!
+    render() { 
+        return (
+            <div>
+                {this.renderContent()}
+            </div>
+        )
     }
 }
  
